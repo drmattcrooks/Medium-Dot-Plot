@@ -1,5 +1,6 @@
 .gitignore
+.idea/*
 
 Medium_screenshots
-figures/*.png
+# /figures/*.png
 .DS_Store

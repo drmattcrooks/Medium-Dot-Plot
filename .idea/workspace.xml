@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5e7012ca-b73b-41ac-bf27-e8e113c00fb1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/figures/finished_example.png" beforeDir="false" afterPath="$PROJECT_DIR$/figures/finished_example.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/figures/savefig_example.png" beforeDir="false" afterPath="$PROJECT_DIR$/figures/savefig_example.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notebooks/Dot Plot notebook.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/notebooks/Dot Plot notebook.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dot_plot_code.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/dot_plot_code.py" afterDir="false" />
-    </list>
+    <list default="true" id="5e7012ca-b73b-41ac-bf27-e8e113c00fb1" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +13,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/dot_plot_code.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="461">
-              <caret line="140" column="114" selection-start-line="140" selection-start-column="114" selection-end-line="140" selection-end-column="114" />
+            <state relative-caret-position="499">
+              <caret line="90" column="26" selection-start-line="90" selection-start-column="26" selection-end-line="90" selection-end-column="26" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -28,6 +23,12 @@
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>raise</find>
+      <find>_get_right_dot_row_info</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -78,6 +79,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
@@ -131,8 +133,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/dot_plot_code.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="140" column="114" selection-start-line="140" selection-start-column="114" selection-end-line="140" selection-end-column="114" />
+        <state relative-caret-position="499">
+          <caret line="90" column="26" selection-start-line="90" selection-start-column="26" selection-end-line="90" selection-end-column="26" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>

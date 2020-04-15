@@ -24,7 +24,8 @@ class create_dot_plot(object):
                  title=None,
                  caption=None,
                  ignore_labels=True,
-                 figsize=None):
+                 figsize=None,
+                 dot_size=1000):
 
         rcParams['font.size'] = 16
         rcParams['font.family'] = 'serif'
@@ -52,7 +53,7 @@ class create_dot_plot(object):
         self.color_dict_reversed = {self.color_dict[key]: key for key in self.color_dict}
         self.class_pc = [self.data_dict[label] for label in self.class_labels]
 
-        self.dot_plot(figsize=figsize)
+        self.dot_plot(dot_size=dot_size, figsize=figsize)
         if not self.ignore_labels:
             self.add_labels()
         if title is not None:
@@ -107,7 +108,7 @@ class create_dot_plot(object):
             self.label_dot_row_range_dict[label] = self.dot_row_range_dict[self.color_dict[label]]
 
     def dot_plot(self,
-                 dot_size=700,
+                 dot_size=None,
                  figsize=None):
 
         color_options = [self.color_dict[label] for label in self.class_labels]

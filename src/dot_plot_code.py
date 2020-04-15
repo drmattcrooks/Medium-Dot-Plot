@@ -23,7 +23,8 @@ class create_dot_plot(object):
                  reversed_rows=None,
                  title=None,
                  caption=None,
-                 ignore_labels=True):
+                 ignore_labels=True,
+                 figsize=None):
 
         rcParams['font.size'] = 16
         rcParams['font.family'] = 'serif'
@@ -37,7 +38,7 @@ class create_dot_plot(object):
             if len(self.class_labels) < 10:
                 color_dict = dict(zip(self.class_labels, list(plt.cm.tab10.colors)))
             else:
-                raise ('ValueError: there are more than 10 classes, consider reducing this for optimal visualisation')
+                raise ValueError('There are more than 10 classes, consider reducing this for optimal visualisation')
 
         self.data_dict = data_dict
         self.color_dict = color_dict
@@ -51,13 +52,16 @@ class create_dot_plot(object):
         self.color_dict_reversed = {self.color_dict[key]: key for key in self.color_dict}
         self.class_pc = [self.data_dict[label] for label in self.class_labels]
 
-        self.dot_plot()
+        self.dot_plot(figsize=figsize)
         if not self.ignore_labels:
             self.add_labels()
         if title is not None:
             self._add_title(title)
         if caption is not None:
             self._add_caption(caption)
+
+        self.ax.set_xlim(-0.8, self.n_grid + 0.8)
+        self.ax.set_ylim(-0.8, self.m_grid - 1 + 0.8)
 
     def _add_title(self, title):
         self.ax.text((self.n_grid - 1) / 2,
@@ -80,6 +84,7 @@ class create_dot_plot(object):
         right_dot_colors_dict = OrderedDict({color: 0 for color in right_dot_colors})
         for color in right_dot_colors:
             right_dot_colors_dict[color] += 1
+
 
         for color in self.color_dict_reversed:
             if color not in right_dot_colors_dict:
@@ -121,7 +126,7 @@ class create_dot_plot(object):
                     X[row, :] = np.fliplr(X[2, :].reshape(1, -1))[0]
 
         if figsize is None:
-            figsize = (0.8 * (1 + self.n_grid), 0.8 * self.m_grid)
+            figsize = (self.n_grid + 1, self.m_grid)
 
         self.f, self.ax = plt.subplots(1, 1, figsize=figsize)
         self.ax.set_axisbelow = False
@@ -132,14 +137,15 @@ class create_dot_plot(object):
 
         dot_value = 100 / (self.n_grid * self.m_grid)
         n_dots_per_class = [int(round(pc / dot_value)) for pc in self.class_pc]
-
+        if sum(n_dots_per_class) > self.n_grid * self.m_grid:
+            raise ValueError('Proportions rounded to produce too many dots. Try manually providing percentages')
         dot_colors = []
         for class_number, n_dots in enumerate(n_dots_per_class):
             dot_colors += [color_options[class_number]] * n_dots
         dot_colors += ['silver'] * (self.n_grid * self.m_grid - len(dot_colors))
 
         if not self.ignore_labels:
-            right_dot_ids = (X == (self.m_grid - 1)).reshape(1, -1)[0]
+            right_dot_ids = (X == (self.n_grid - 1)).reshape(1, -1)[0]
             self._get_right_dot_row_info(np.array(dot_colors)[right_dot_ids])
 
         self.ax.scatter(X.reshape(1, -1),
@@ -171,18 +177,18 @@ class create_dot_plot(object):
             mid_point = 0.5 * dot_row_range[0] + 0.5 * dot_row_range[1]
 
         if len(dot_row_range) == 2:
-            self.ax.plot([self.m_grid - dash_width, self.m_grid, self.m_grid, self.m_grid - dash_width],
+            self.ax.plot([self.n_grid - dash_width, self.n_grid, self.n_grid, self.n_grid - dash_width],
                     [dot_row_range[0], dot_row_range[0], dot_row_range[1], dot_row_range[1]],
                     color=self.color_dict[label])
-            self.ax.plot([self.m_grid, self.m_grid + dash_width],
+            self.ax.plot([self.n_grid, self.n_grid + dash_width],
                     [mid_point] * 2,
                     color=self.color_dict[label])
         else:
-            self.ax.plot([self.m_grid - dash_width, self.m_grid + dash_width],
+            self.ax.plot([self.n_grid - dash_width, self.n_grid + dash_width],
                     dot_row_range * 2,
                     color=self.color_dict[label])
 
-        self.ax.text(self.m_grid + 2 * dash_width,
+        self.ax.text(self.n_grid + 2 * dash_width,
                 mid_point,
                 label,
                 horizontalalignment='left',

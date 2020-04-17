@@ -43,6 +43,9 @@ class create_dot_plot(object):
 
         self.data_dict = data_dict
         self.color_dict = color_dict
+        self.color_dict_named_colors = {f"color_{key}": self.color_dict[key] for key in self.color_dict}
+        self.color_dict = {key: f"color_{key}" for key in self.color_dict}
+
         self.n_grid = grid_shape[0]
         self.m_grid = grid_shape[1]
         self.reversed_rows = reversed_rows
@@ -82,6 +85,7 @@ class create_dot_plot(object):
 
     def _get_right_dot_row_info(self, right_dot_colors):
 
+        right_dot_colors = [str(color) for color in right_dot_colors]
         right_dot_colors_dict = OrderedDict({color: 0 for color in right_dot_colors})
         for color in right_dot_colors:
             right_dot_colors_dict[color] += 1
@@ -152,7 +156,7 @@ class create_dot_plot(object):
         self.ax.scatter(X.reshape(1, -1),
                    Y.reshape(1, -1),
                    s=dot_size,
-                   color=dot_colors[:self.n_grid * self.m_grid],
+                   color=[self.color_dict_named_colors[color] for color in dot_colors[:self.n_grid * self.m_grid]],
                    edgecolor=None)
 
         plt.axis('off')
@@ -180,20 +184,20 @@ class create_dot_plot(object):
         if len(dot_row_range) == 2:
             self.ax.plot([self.n_grid - dash_width, self.n_grid, self.n_grid, self.n_grid - dash_width],
                     [dot_row_range[0], dot_row_range[0], dot_row_range[1], dot_row_range[1]],
-                    color=self.color_dict[label])
+                    color=self.color_dict_named_colors[self.color_dict[label]])
             self.ax.plot([self.n_grid, self.n_grid + dash_width],
                     [mid_point] * 2,
-                    color=self.color_dict[label])
+                    color=self.color_dict_named_colors[self.color_dict[label]])
         else:
             self.ax.plot([self.n_grid - dash_width, self.n_grid + dash_width],
                     dot_row_range * 2,
-                    color=self.color_dict[label])
+                    color=self.color_dict_named_colors[self.color_dict[label]])
 
         self.ax.text(self.n_grid + 2 * dash_width,
                 mid_point,
                 label,
                 horizontalalignment='left',
                 verticalalignment='center',
-                color=self.color_dict[label]
+                color=self.color_dict_named_colors[self.color_dict[label]]
         )
 
